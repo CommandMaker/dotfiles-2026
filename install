@@ -1,0 +1,23 @@
+#!/bin/bash
+
+link_files() {
+    echo Linking config files
+    for dir in $(find user/* -type d)
+    do
+	d=$(basename $dir)
+	if [ -L ${HOME}/.config/${d} ]
+	then
+	    echo $d already linked. Skipping.
+	else
+            echo Linking $d
+	    ln -sf $(pwd)/$dir $HOME/.config/$d
+	fi
+    done
+}
+
+main() {
+    link_files
+}
+
+
+main
