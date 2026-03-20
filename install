@@ -1,18 +1,26 @@
 #!/bin/bash
 
 link_files() {
-    echo Linking config files
+    echo "Linking config files"
     for dir in $(find user/* -type d)
     do
 	d=$(basename $dir)
 	if [ -L ${HOME}/.config/${d} ]
 	then
-	    echo $d already linked. Skipping.
+	    echo "$d already linked. Skipping."
 	else
-            echo Linking $d
+        echo "Linking $d"
 	    ln -sf $(pwd)/$dir $HOME/.config/$d
 	fi
     done
+
+    echo "Linking config for ZRAM service (may require sudo password)"
+    /usr/bin/sudo ln -sf $(pwd)/etc/scripts /etc/scripts
+    /usr/bin/sudo ln -sf $(pwd)/etc/systemd/system/zram.service /etc/systemd/system/zram.service
+    echo ""
+    echo "Enabling ZRAM service"
+
+    /usr/bin/sudo systemctl enable --now zram.service
 }
 
 main() {

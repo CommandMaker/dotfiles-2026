@@ -1,0 +1,11 @@
+[Unit]
+Description=ZRAM
+
+[Service]
+ExecStart=/etc/scripts/zram-start.sh
+ExecStop=/etc/scripts/zram-stop.sh
+Type=oneshot
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
