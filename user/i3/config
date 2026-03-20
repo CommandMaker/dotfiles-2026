@@ -12,12 +12,13 @@ for_window [class="^.*"] border pixel 3
 #class			border	 backgr   text     indicator  child_border
 client.focused		#8a8a8a  #121212  #e0e0e0  #e0e0e0    #8a8a8a
 # client.focused_inactive
+# client.unfocused
 
 #========================================
 #              Keybinds                 #
 #========================================
 
-exec --no-startup-id dex --autostart --environment i3
+exec_always --no-startup-id killall polybar; polybar &
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -116,10 +117,10 @@ bindsym $mod+Shift+agrave move container to workspace number $ws10
 bindsym $mod+Shift+r restart
 
 mode "resize" {
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -128,9 +129,3 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-        status_command i3status
-}
