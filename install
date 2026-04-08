@@ -4,6 +4,11 @@ set -e
 
 link_files() {
     echo "Linking config files"
+
+    if [ ! -d "$HOME/.config" ]; then
+	mkdir $HOME/.config
+    fi
+
     for dir in $(find user/* -type d)
     do
 	d=$(basename $dir)
@@ -25,6 +30,30 @@ link_files() {
     /usr/bin/sudo systemctl enable --now zram.service
 }
 
+install_yay() {
+    if ! command -v yay >/dev/null 2>&1; then
+        echo "yay command not found. Installing yay"
+
+        folder=$(mktemp -d)
+        /usr/bin/git clone https://aur.archlinux.org/yay $folder
+        pushd $folder
+        makepkg -si
+        popd
+        rm -rf $folder
+    fi
+}
+
+install_packages() {
+    echo "Installing packages"
+    packages=""
+
+    while read -r line; do
+        packages="$packages $line"
+    done < ".packagelist"
+
+    /usr/bin/yay -S --needed $packages
+}
+
 install_st() {
     echo "Compiling and installing st (simple terminal)"
     folder=$(mktemp -d)
@@ -36,8 +65,10 @@ install_st() {
 }
 
 main() {
-    # link_files
-    install_st
+    link_files
+    install_yay
+    install_packages
+    #install_st
 }
 
 

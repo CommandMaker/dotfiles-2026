@@ -18,7 +18,8 @@ client.focused		#8a8a8a  #121212  #e0e0e0  #e0e0e0    #8a8a8a
 #              Keybinds                 #
 #========================================
 
-exec_always --no-startup-id killall polybar; polybar &
+exec_always --no-startup-id killall polybar; ~/.config/polybar/start.sh
+exec_always --no-startup-id killall redshift; redshift &
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status

@@ -47,7 +47,7 @@ if [ -d "$xinitdir"/xinitrc.d ] ; then
 fi
 
 # Set keyboard layout
-setxkbmap fr
+setxkbmap us -variant intl
 
 # Enable tap to click on the trackpad
 xinput set-prop SYN1B7F:00\ 06CB:CD41\ Touchpad "libinput Tapping Enabled" 1
