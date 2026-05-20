@@ -51,7 +51,7 @@ install_packages() {
         packages="$packages $line"
     done < ".packagelist"
 
-    /usr/bin/yay -S --needed $packages
+    /usr/bin/yay -Sy --needed $packages
 }
 
 install_st() {
