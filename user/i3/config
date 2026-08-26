@@ -20,6 +20,7 @@ client.focused		#8a8a8a  #121212  #e0e0e0  #e0e0e0    #8a8a8a
 
 exec_always --no-startup-id killall polybar; ~/.config/polybar/start.sh
 exec_always --no-startup-id killall redshift; redshift &
+exec_always --no-startup-id feh --bg-fill ~/Pictures/IMG_6171.JPG
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -45,6 +46,9 @@ bindsym $mod+c exec helium-browser
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show drun
+
+# start rofi as a Minecraft launcher (through MultiMC)
+bindsym $mod+m exec --no-startup-id ~/.bin/multimc-fzf.py
 
 # change focus
 bindsym $mod+h focus left

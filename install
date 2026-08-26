@@ -6,28 +6,54 @@ link_files() {
     echo "Linking config files"
 
     if [ ! -d "$HOME/.config" ]; then
-	mkdir $HOME/.config
+        mkdir $HOME/.config
     fi
 
-    for dir in $(find user/* -type d)
-    do
-	d=$(basename $dir)
-	if [ -L ${HOME}/.config/${d} ]
-	then
-	    echo "$d already linked. Skipping."
-	else
-        echo "Linking $d"
-	    ln -sf $(pwd)/$dir $HOME/.config/$d
-	fi
+    # User config directories linking
+    for dir in $(find user/* -type d); do
+        d=$(basename $dir)
+        if [ -L ${HOME}/.config/${d} ]; then
+            echo "$d already linked. Skipping."
+        else
+            echo "Linking $d"
+            ln -sf $(pwd)/$dir $HOME/.config/$d
+        fi
     done
 
-    echo "Linking config for ZRAM service (may require sudo password)"
-    /usr/bin/sudo ln -sf $(pwd)/etc/scripts /etc/scripts
-    /usr/bin/sudo ln -sf $(pwd)/etc/systemd/system/zram.service /etc/systemd/system/zram.service
+    # User config files linking
+    for file in $(find user/ -maxdepth 1 -type f); do
+        filename=$(basename $file)
+
+        if [ -L ${HOME}/${filename} ]; then
+            echo "$filename already linked. Skipping."
+        else
+            echo "Linking $filename"
+            ln -sf $(pwd)/$file $HOME/$filename
+        fi
+    done
+
+    if ! [ -L /etc/scripts  ]; then
+        echo "Linking config for ZRAM service (may require sudo password)"
+        /usr/bin/sudo ln -sf $(pwd)/etc/scripts /etc/scripts
+    else
+        echo "/etc/scripts is already linked. Skipping"
+    fi
+
+    if ! [ -L /etc/systemd/system/zram.service ]; then
+        echo "Linking systemd service for ZRAM (may require sudo password)"
+        /usr/bin/sudo ln -sf $(pwd)/etc/systemd/system/zram.service /etc/systemd/system/zram.service
+    else
+        echo "systemd service already linked. Skipping"
+    fi
+
     echo ""
     echo "Enabling ZRAM service"
 
     /usr/bin/sudo systemctl enable --now zram.service
+}
+
+install_tmux() {
+    if ! [ -d  ]
 }
 
 install_yay() {
@@ -66,9 +92,9 @@ install_st() {
 
 main() {
     link_files
-    install_yay
+    # install_yay
     install_packages
-    #install_st
+    # install_st
 }
 
 

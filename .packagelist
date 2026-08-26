@@ -1,3 +1,4 @@
+asdf-vm
 eza
 fd
 fzf
@@ -14,9 +15,11 @@ pulseaudio-bluetooth
 python
 redshift
 rofi
+tmux
 tree-sitter-cli
 ttf-jetbrains-mono-nerd
 ttf-liberation-mono-nerd
 ttf-lilex-nerd
 unzip
 xclip
+zsh

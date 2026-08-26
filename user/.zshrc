@@ -9,6 +9,8 @@ HISTSIZE=1000
 SAVEHIST=1000
 # End of lines configured by zsh-newuser-install
 
+export TERMINAL="/usr/local/bin/st"
+
 alias ls="exa -lah --group-directories-first"
 alias dc="USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose"
 alias de="USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose exec"
@@ -22,3 +24,6 @@ export PATH="$HOME/.bin:$HOME/.local/bin:$PATH"
 # asdf autocomplete
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 autoload -Uz compinit && compinit
+
+# zoxide
+eval "$(zoxide init zsh)"
