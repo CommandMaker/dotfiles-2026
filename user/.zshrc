@@ -20,6 +20,7 @@ alias sudo="sudo -Es"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 export PATH="$HOME/.bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/.bun/bin:$PATH"
 
 # asdf autocomplete
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
