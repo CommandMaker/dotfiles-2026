@@ -28,3 +28,6 @@ autoload -Uz compinit && compinit
 
 # zoxide
 eval "$(zoxide init zsh)"
+
+# Set prompt
+export PS1="%~ → "
